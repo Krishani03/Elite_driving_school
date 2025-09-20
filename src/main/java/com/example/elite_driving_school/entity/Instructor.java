@@ -1,7 +1,6 @@
 package com.example.elite_driving_school.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CascadeType;
 import java.util.HashSet;
 import java.util.Set;
 
