@@ -1,4 +1,6 @@
 package com.example.elite_driving_school.bo.custom;
 
-public interface UserBO {
+import com.example.elite_driving_school.bo.SuperBO;
+
+public interface UserBO extends SuperBO {
 }
