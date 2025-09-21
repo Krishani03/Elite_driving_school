@@ -11,122 +11,49 @@ import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO {
 
-        private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+        @Override
+        public boolean save(User user, Session session) {
+            session.persist(user);
+            return true;
+        }
 
         @Override
-        public boolean save(User user) {
-            Session session = factoryConfiguration.getSession();
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.persist(user);
-                transaction.commit();
+        public boolean update(User user, Session session) {
+            session.merge(user);
+            return true;
+        }
+
+        @Override
+        public boolean delete(String id, Session session) {
+            User user = session.get(User.class, id);
+            if (user != null) {
+                session.remove(user);
                 return true;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                e.printStackTrace();
-                return false;
-            } finally {
-                session.close();
             }
+            return false;
         }
 
         @Override
-        public boolean update(User user) {
-            Session session = factoryConfiguration.getSession();
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.merge(user);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                e.printStackTrace();
-                return false;
-            } finally {
-                session.close();
-            }
+        public User search(String id, Session session) {
+            return session.get(User.class, id);
         }
 
         @Override
-        public boolean delete(String id) {
-            Session session = factoryConfiguration.getSession();
-            Transaction transaction = session.beginTransaction();
-            try {
-                User user = session.get(User.class, id);
-                if (user != null) {
-                    session.remove(user);
-                    transaction.commit();
-                    return true;
-                }
-                return false;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                e.printStackTrace();
-                return false;
-            } finally {
-                session.close();
-            }
+        public ArrayList<User> getAll(Session session) {
+            Query<User> query = session.createQuery("FROM User", User.class);
+            return (ArrayList<User>) query.getResultList();
         }
 
         @Override
-        public ArrayList<User> search(String id) {
-            Session session = factoryConfiguration.getSession();
-            Transaction transaction = session.beginTransaction();
-            try {
-                Query<User> query = session.createQuery("FROM User WHERE id = :userId", User.class);
-                query.setParameter("userId", id);
-                ArrayList<User> list = (ArrayList<User>) query.getResultList();
-                transaction.commit();
-                return list;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                e.printStackTrace();
-                return null;
-            } finally {
-                session.close();
+        public String getNextId(Session session) {
+            Query<String> query = session.createQuery("SELECT id FROM User ORDER BY id DESC", String.class);
+            query.setMaxResults(1);
+            String lastId = query.uniqueResult();
+            if (lastId != null) {
+                int lastNum = Integer.parseInt(lastId.substring(1));
+                return String.format("U%04d", lastNum + 1);
             }
-        }
-
-        @Override
-        public ArrayList<User> getAll() {
-            Session session = factoryConfiguration.getSession();
-            Transaction transaction = session.beginTransaction();
-            try {
-                Query<User> query = session.createQuery("FROM User", User.class);
-                ArrayList<User> list = (ArrayList<User>) query.getResultList();
-                transaction.commit();
-                return list;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                e.printStackTrace();
-                return null;
-            } finally {
-                session.close();
-            }
-        }
-
-        @Override
-        public String getNextId() {
-            Session session = factoryConfiguration.getSession();
-            Transaction transaction = session.beginTransaction();
-            String nextId = "U1001";
-            try {
-                Query<String> query = session.createQuery("SELECT id FROM User ORDER BY id DESC", String.class);
-                query.setMaxResults(1);
-                String lastId = query.uniqueResult();
-                if (lastId != null) {
-                    int lastNum = Integer.parseInt(lastId.substring(1));
-                    return String.format("U%04d", lastNum + 1);
-                }
-                transaction.commit();
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                e.printStackTrace();
-            } finally {
-                session.close();
-            }
-            return nextId;
+            return "U1001";
         }
     }
-
 
