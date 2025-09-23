@@ -6,9 +6,17 @@ import org.hibernate.annotations.Table;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "students")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
     public class Student {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +46,9 @@ import java.util.Set;
         @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Lesson> lessons = new HashSet<>();
 
-        // Getters & Setters
+
+
+    // Getters & Setters
     }
 
 
