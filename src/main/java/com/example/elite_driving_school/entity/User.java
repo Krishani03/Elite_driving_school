@@ -3,29 +3,43 @@ package com.example.elite_driving_school.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Table;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
-    public class User {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class User {
 
-        @Column(unique = true, nullable = false)
-        private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @Column(nullable = false)
-        private String passwordHash; // store with BCrypt
+    @Column(unique = true, nullable = false)
+    private String username;
 
-        @Enumerated(EnumType.STRING)
-        private Role role; // ADMIN, RECEPTIONIST
+    @Column(nullable = false)
+    private String passwordHash; // store with BCrypt
 
-        private boolean active = true;
+    @Enumerated(EnumType.STRING)
+    private Role role; // ADMIN, RECEPTIONIST
 
-        public enum Role {
-            ADMIN, RECEPTIONIST
-        }
+    private boolean active = true;
 
-        // Getters & Setters
+    public User(String username, String s, Role role, boolean active) {
     }
+
+    public User(Long id, String username, String password, Role role) {
+
+    }
+
+
+    public enum Role {
+        ADMIN, RECEPTIONIST
+    }
+}
+
 

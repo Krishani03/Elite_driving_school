@@ -9,7 +9,7 @@ public class DAOFactory {
     public static DAOFactory getInstance() {
         return (daoFactory==null)?new DAOFactory():daoFactory;
     }
-    public enum DAOTypes {
+    public enum DAOType {
         USER,
         STUDENT,
         PAYMENT,
@@ -17,7 +17,7 @@ public class DAOFactory {
         INSTRUCTOR,
         COURSE,
     }
-    public SuperDAO getDAO(DAOTypes daoType) {
+    public SuperDAO getDAO(DAOType daoType) {
         switch(daoType){
             case USER:
                 return new UserDAOImpl();
