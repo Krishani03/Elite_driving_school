@@ -1,30 +1,35 @@
 package com.example.elite_driving_school.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-    @Entity
-    @Table(name = "payments")
-    public class Payment {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "payments")
+public class Payment {
 
-        private BigDecimal amount;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private LocalDateTime paymentDate;
+    private BigDecimal amount;
 
-        private String method; // cash, card, etc.
+    private LocalDateTime paymentDate;
 
-        @ManyToOne
-        @JoinColumn(name = "student_id")
-        private Student student;
+    private String method; // cash, card, etc.
 
-        // @ManyToMany
-        // private Set<Course> courses;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-        // Getters & Setters
-    }
-
-
+    // If you want to link courses later:
+    // @ManyToMany
+    // private Set<Course> courses;
+}
