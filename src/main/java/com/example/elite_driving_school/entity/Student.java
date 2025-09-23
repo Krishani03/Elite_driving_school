@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -47,8 +47,6 @@ import lombok.AllArgsConstructor;
         private Set<Lesson> lessons = new HashSet<>();
 
 
-
-    // Getters & Setters
-    }
+ }
 
 

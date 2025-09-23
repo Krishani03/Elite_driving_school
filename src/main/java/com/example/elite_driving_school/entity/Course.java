@@ -20,7 +20,7 @@ import java.util.HashSet;
     public class Course {
         @Id
         @Column(name = "course_id")
-        private String courseId; // e.g., "C1001"
+        private Long id; // e.g., "C1001"
 
         private String name;
 
@@ -34,7 +34,7 @@ import java.util.HashSet;
         @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Lesson> lessons = new HashSet<>();
 
-        // Getters & Setters
-    }
+
+ }
 
 

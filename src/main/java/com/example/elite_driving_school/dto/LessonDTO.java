@@ -7,14 +7,14 @@ public class LessonDTO implements Serializable {
     private long id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private String studentId;
-    private String courseId;
-    private String instructorId;
+    private Long studentId;
+    private Long courseId;
+    private Long instructorId;
 
     public LessonDTO() {
     }
     public LessonDTO(Long id, LocalDateTime startTime, LocalDateTime endTime,
-                     String studentId, String courseId, String instructorId) {
+                     Long studentId, Long courseId, Long instructorId) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -47,27 +47,27 @@ public class LessonDTO implements Serializable {
         this.endTime = endTime;
     }
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
-    public String getCourseId() {
+    public Long getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Long courseId) {
         this.courseId = courseId;
     }
 
-    public String getInstructorId() {
+    public Long getInstructorId() {
         return instructorId;
     }
 
-    public void setInstructorId(String instructorId) {
+    public void setInstructorId(Long instructorId) {
         this.instructorId = instructorId;
     }
 }
