@@ -7,7 +7,7 @@ public class UserDTO implements Serializable {
 
         private Long id;  // Match entity type
         private String username;
-        private String password; // plain password (to be hashed before saving)
+        private String password;
         private User.Role role;
         private boolean active;
 

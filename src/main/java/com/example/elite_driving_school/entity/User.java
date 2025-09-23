@@ -30,6 +30,7 @@ public class User {
     private boolean active = true;
 
     public User(String username, String s, Role role, boolean active) {
+
     }
 
     public User(Long id, String username, String password, Role role) {
