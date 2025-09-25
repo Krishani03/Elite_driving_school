@@ -24,8 +24,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class Payment_FormController {
-    @FXML
-    private TextField cmbAmount;
+
 
     @FXML
     private ComboBox<String> cmbMethod;
@@ -52,7 +51,10 @@ public class Payment_FormController {
     private DatePicker datePicker;
 
     @FXML
-    private Label lblId;
+    private TextField txtAmount;
+
+    @FXML
+    private TextField txtPaymentID;
 
     @FXML
     private TableView<PaymentDTO> tblPayment;
@@ -86,7 +88,7 @@ public class Payment_FormController {
 
         BigDecimal amount;
         try {
-            amount = new BigDecimal(cmbAmount.getText());
+            amount = new BigDecimal(txtAmount.getText());
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.WARNING, "Validation Error", "Enter a valid amount!");
             return;
@@ -128,15 +130,15 @@ public class Payment_FormController {
     void onClickTable(MouseEvent event) {
         PaymentDTO selected = tblPayment.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            lblId.setText(String.valueOf(selected.getId()));
-            cmbAmount.setText(selected.getAmount().toString());
+            txtPaymentID.setText(String.valueOf(selected.getId()));
+            txtAmount.setText(selected.getAmount().toString());
             cmbMethod.setValue(selected.getMethod());
             datePicker.setValue(selected.getPayment_date().toLocalDate());
             comStudent.getSelectionModel().select(selected.getStudent());
         }
     }
     private void clearForm() {
-        cmbAmount.clear();
+        txtAmount.clear();
         cmbMethod.getSelectionModel().clearSelection();
         comStudent.getSelectionModel().clearSelection();
         datePicker.setValue(null);
@@ -161,7 +163,7 @@ public class Payment_FormController {
     private void loadNextPaymentId() {
         try (Session session = sessionFactory.openSession()) {
             String nextId = paymentBO.getNextPaymentId(session);
-            lblId.setText(nextId);
+            txtPaymentID.setText(nextId);
         } catch (Exception e) {
             e.printStackTrace();
         }

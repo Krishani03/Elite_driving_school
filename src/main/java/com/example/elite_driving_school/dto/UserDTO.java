@@ -5,7 +5,7 @@ import com.example.elite_driving_school.entity.User;
 
 public class UserDTO implements Serializable {
 
-        private Long id;  // Match entity type
+        private String id;  // Match entity type
         private String username;
         private String password;
         private String role;
@@ -15,7 +15,7 @@ public class UserDTO implements Serializable {
 
         }
 
-        public UserDTO(Long id, String username, String password, String role, boolean active) {
+        public UserDTO(String id, String username, String password, String role, boolean active) {
             this.id = id;
             this.username = username;
             this.password = password;
@@ -23,7 +23,7 @@ public class UserDTO implements Serializable {
             this.active = active;
         }
 
-    public UserDTO(Long id, String username, String password, User.Role role) {
+    public UserDTO(String id, String username, String password, User.Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -31,9 +31,9 @@ public class UserDTO implements Serializable {
         this.active = true; // or pass from parameter if needed
     }
 
-    public Long getId() {
+    public String getId() {
             return id; }
-        public void setId(Long id) {
+        public void setId(String id) {
             this.id = id; }
 
         public String getUsername() {

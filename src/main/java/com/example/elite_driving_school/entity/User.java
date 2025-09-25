@@ -15,8 +15,7 @@ import lombok.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -36,7 +35,7 @@ public class User {
         this.active = active;
     }
 
-    public User(Long id, String username, String passwordHash, Role role) {
+    public User(String id, String username, String passwordHash, Role role) {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;

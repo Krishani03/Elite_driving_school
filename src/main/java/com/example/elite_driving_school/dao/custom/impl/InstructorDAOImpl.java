@@ -5,7 +5,7 @@ import com.example.elite_driving_school.entity.Instructor;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 public class InstructorDAOImpl implements InstructorDAO {
@@ -23,7 +23,7 @@ public class InstructorDAOImpl implements InstructorDAO {
     }
 
     @Override
-    public boolean delete(Long id, Session session) {
+    public boolean delete(String id, Session session) {
         Instructor instructor = session.get(Instructor.class, id);
         if (instructor != null) {
             session.remove(instructor);
@@ -33,7 +33,7 @@ public class InstructorDAOImpl implements InstructorDAO {
     }
 
     @Override
-    public Instructor search(Long id, Session session) {
+    public Instructor search(String id, Session session) {
         return session.get(Instructor.class, id);
     }
 
@@ -43,5 +43,18 @@ public class InstructorDAOImpl implements InstructorDAO {
         return query.getResultList(); // returns List<Instructor>
     }
 
+    @Override
+    public String getNextId(Session session) throws SQLException {
+        Query<String> query = session.createQuery(
+                "SELECT i.id FROM Instructor i ORDER BY i.id DESC", String.class);
+        query.setMaxResults(1);
+        String lastId = query.uniqueResult();
 
+        if (lastId != null) {
+            int num = Integer.parseInt(lastId.substring(1)); // remove 'I'
+            return "I" + (num + 1);
+        }
+
+        return "I1001"; // first ID
+    }
 }

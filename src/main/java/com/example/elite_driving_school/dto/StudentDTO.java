@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class StudentDTO implements Serializable {
-    private Long id;
+    private String id;
     private String first_name;
     private String last_name;
     private String email;
@@ -12,7 +12,7 @@ public class StudentDTO implements Serializable {
     private LocalDate registration_date;
 
 
-    public StudentDTO(Long id, String first_name, String last_name, String email, String phone, LocalDate registration_date) {
+    public StudentDTO(String id, String first_name, String last_name, String email, String phone, LocalDate registration_date) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -21,11 +21,11 @@ public class StudentDTO implements Serializable {
         this.registration_date = registration_date;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -10,13 +10,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="450.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/24.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.elite_driving_school.controller.UserFormController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.elite_driving_school.controller.UserFormController">
     <children>
         <Label layoutX="20.0" layoutY="20.0" text="User Id" />
-        <Label fx:id="lblId" layoutX="120.0" layoutY="20.0" text="U1001" />
 
         <Label layoutX="20.0" layoutY="60.0" text="Username" />
         <TextField fx:id="txtUsername" layoutX="120.0" layoutY="60.0" prefWidth="200.0" />
@@ -45,5 +41,6 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
+      <TextField fx:id="txtUsernameID" layoutX="120.0" layoutY="16.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

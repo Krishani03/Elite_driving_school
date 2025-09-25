@@ -23,7 +23,10 @@ public class StudentBOImpl implements StudentBO {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             transaction = session.beginTransaction();
 
+            String nextId = studentDAO.getNextId(session);
+
             Student student = new Student();
+            student.setId(nextId);
             student.setFirstName(dto.getFirst_name());
             student.setLastName(dto.getLast_name());
             student.setEmail(dto.getEmail());
@@ -33,7 +36,7 @@ public class StudentBOImpl implements StudentBO {
             studentDAO.save(student, session);
             transaction.commit();
 
-            dto.setId(student.getId()); // set the generated ID back to DTO
+            dto.setId(student.getId());
             return dto;
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
@@ -41,6 +44,7 @@ public class StudentBOImpl implements StudentBO {
             return null;
         }
     }
+
 
     @Override
     public boolean updateStudent(StudentDTO dto) {
@@ -68,7 +72,7 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public boolean deleteStudent(Long id) {
+    public boolean deleteStudent(String id) {
         Transaction transaction = null;
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             transaction = session.beginTransaction();
@@ -83,7 +87,7 @@ public class StudentBOImpl implements StudentBO {
     }
 
     @Override
-    public StudentDTO searchStudent(Long id) {
+    public StudentDTO searchStudent(String id) {
         try (Session session = FactoryConfiguration.getInstance().getSession()) {
             Student student = studentDAO.search(id, session);
             if (student != null) {
@@ -120,4 +124,6 @@ public class StudentBOImpl implements StudentBO {
             return dtoList;
         }
     }
+
+
 }

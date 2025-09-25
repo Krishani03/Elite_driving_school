@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface UserBO extends SuperBO {
-    public boolean saveUser(UserDTO dto);
+    public UserDTO saveUser(UserDTO dto);
     public boolean updateUser(UserDTO dto);
     public boolean deleteUser(String id);
     public UserDTO searchUser(String id) throws SQLException;
-    public ArrayList<UserDTO> getAllUsers();
+    public ArrayList<UserDTO> getAllUsers() throws SQLException;
     public String getNextUserId() throws SQLException;
 
     UserDTO getUserByUsername(String username) throws SQLException;

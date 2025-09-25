@@ -13,8 +13,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.elite_driving_school.controller.Payment_FormController">
    <children>
       <Label layoutX="14.0" layoutY="20.0" prefHeight="23.0" prefWidth="155.0" text="Payment Id" />
-      <Label fx:id="lblId" layoutX="141.0" layoutY="23.0" prefHeight="17.0" prefWidth="44.0" text="1" />
-      <Label layoutX="14.0" layoutY="44.0" prefHeight="23.0" prefWidth="109.0" text="Student" />
+      <Label layoutX="208.0" layoutY="31.0" prefHeight="23.0" prefWidth="109.0" text="Student" />
       <Label layoutX="14.0" layoutY="115.0" prefHeight="23.0" prefWidth="94.0" text="Method" />
       <Button layoutX="53.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnAddPayOnAction" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #3127F5;" text="Add" textFill="WHITE">
          <font>
@@ -39,10 +38,11 @@
          </columnResizePolicy>
       </TableView>
       <Label layoutX="14.0" layoutY="81.0" prefHeight="23.0" prefWidth="109.0" text="Amount" />
-      <TextField fx:id="cmbAmount" layoutX="77.0" layoutY="80.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
-      <ComboBox fx:id="comStudent" layoutX="77.0" layoutY="43.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
+      <TextField fx:id="txtAmount" layoutX="77.0" layoutY="80.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
+      <ComboBox fx:id="comStudent" layoutX="271.0" layoutY="30.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
       <ComboBox fx:id="cmbMethod" layoutX="77.0" layoutY="114.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
       <Label layoutX="240.0" layoutY="115.0" prefHeight="23.0" prefWidth="94.0" text="Date" />
       <DatePicker fx:id="datePicker" layoutX="280.0" layoutY="114.0" prefHeight="25.0" prefWidth="141.0" />
+      <TextField fx:id="txtPaymentID" layoutX="77.0" layoutY="19.0" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #ffffff;" />
    </children>
 </AnchorPane>

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class PaymentDTO implements Serializable {
-    private Long id;
+    private String  id;
     private BigDecimal amount;
     private LocalDateTime payment_date;
     private String method;
@@ -17,7 +17,7 @@ public class PaymentDTO implements Serializable {
 
     public PaymentDTO() {}
 
-    public PaymentDTO(Long id, BigDecimal amount, LocalDateTime payment_date, String method, Student student) {
+    public PaymentDTO(String  id, BigDecimal amount, LocalDateTime payment_date, String method, Student student) {
         this.id = id;
         this.amount = amount;
         this.payment_date = payment_date;
@@ -27,8 +27,8 @@ public class PaymentDTO implements Serializable {
     }
 
     // getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String  getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public BigDecimal getAmount() { return amount; }
     public void setAmount(BigDecimal amount) { this.amount = amount; }

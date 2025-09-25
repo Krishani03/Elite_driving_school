@@ -1,7 +1,7 @@
 package com.example.elite_driving_school.controller;
 
+import com.example.elite_driving_school.bo.BOFactory;
 import com.example.elite_driving_school.bo.custom.UserBO;
-import com.example.elite_driving_school.bo.custom.impl.UserBOImpl;
 import com.example.elite_driving_school.dto.UserDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,16 +26,13 @@ public class UserFormController {
     private TableColumn<UserDTO, Boolean> colActive;
 
     @FXML
-    private TableColumn<UserDTO, Long> colId;
+    private TableColumn<UserDTO, String> colId;
 
     @FXML
     private TableColumn<UserDTO, String> colRole;
 
     @FXML
     private TableColumn<UserDTO, String> colUsername;
-
-    @FXML
-    private Label lblId;
 
     @FXML
     private TableView<UserDTO> tblUsers;
@@ -46,7 +43,10 @@ public class UserFormController {
     @FXML
     private TextField txtUsername;
 
-    private final UserBO userBO = new UserBOImpl();
+    @FXML
+    private TextField txtUserId;
+
+    private final UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
 
     public void initialize() {
         // Set table columns
@@ -64,60 +64,66 @@ public class UserFormController {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        if (validateInputs()) {
+        if (!validateInputs()) return;
+
+        try {
             UserDTO dto = new UserDTO();
+            dto.setId(txtUserId.getText());
             dto.setUsername(txtUsername.getText());
             dto.setPassword(txtPassword.getText());
             dto.setRole(cmbRole.getValue());
             dto.setActive(chkActive.isSelected());
 
-            try {
-                boolean added = userBO.saveUser(dto);
-                if (added) {
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "User added successfully");
-                    clearForm();
-                    loadUsers();
-                    loadNextUserId();
-                }
-            } catch (Exception e) {
-                showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+            UserDTO savedUser = userBO.saveUser(dto);
+
+            if (savedUser != null) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "User added successfully");
+                clearForm();
+                loadUsers();
+                loadNextUserId();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Failed", "Failed to add user");
             }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        if (validateInputs()) {
+        if (!validateInputs()) return;
+
+        try {
             UserDTO dto = new UserDTO();
-            dto.setId(Long.parseLong(lblId.getText().substring(1))); // Remove 'U' prefix
+            dto.setId(txtUserId.getText());
             dto.setUsername(txtUsername.getText());
             dto.setPassword(txtPassword.getText());
             dto.setRole(cmbRole.getValue());
             dto.setActive(chkActive.isSelected());
 
-            try {
-                boolean updated = userBO.updateUser(dto);
-                if (updated) {
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "User updated successfully");
-                    clearForm();
-                    loadUsers();
-                }
-            } catch (Exception e) {
-                showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+            if (userBO.updateUser(dto)) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "User updated successfully");
+                clearForm();
+                loadUsers();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Failed", "Failed to update user");
             }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            String id = lblId.getText();
-            boolean deleted = userBO.deleteUser(id);
-            if (deleted) {
+            String id = txtUserId.getText();
+            if (userBO.deleteUser(id)) {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "User deleted successfully");
                 clearForm();
                 loadUsers();
                 loadNextUserId();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Failed", "Failed to delete user");
             }
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
@@ -133,7 +139,7 @@ public class UserFormController {
     void onClickTable(MouseEvent event) {
         UserDTO selected = tblUsers.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            lblId.setText("U" + selected.getId());
+            txtUserId.setText(selected.getId());
             txtUsername.setText(selected.getUsername());
             txtPassword.setText(selected.getPassword());
             cmbRole.setValue(selected.getRole());
@@ -153,16 +159,16 @@ public class UserFormController {
             ObservableList<UserDTO> users = FXCollections.observableArrayList(userBO.getAllUsers());
             tblUsers.setItems(users);
         } catch (Exception e) {
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load users: " + e.getMessage());
         }
     }
 
     private void loadNextUserId() {
         try {
             String nextId = userBO.getNextUserId();
-            lblId.setText(nextId);
+            txtUserId.setText(nextId);
         } catch (Exception e) {
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate next User ID: " + e.getMessage());
         }
     }
 

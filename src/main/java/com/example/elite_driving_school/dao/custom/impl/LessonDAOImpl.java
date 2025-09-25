@@ -5,6 +5,7 @@ import com.example.elite_driving_school.entity.Lesson;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LessonDAOImpl implements LessonDAO {
@@ -43,14 +44,17 @@ public class LessonDAOImpl implements LessonDAO {
     }
 
     @Override
-    public String getNextId(Session session) {
-        Query<String> query = session.createQuery("SELECT id FROM Lesson ORDER BY id DESC", String.class);
+    public String getNextId(Session session) throws SQLException {
+        Query<String> query = session.createQuery(
+                "SELECT id FROM Lesson ORDER BY id DESC", String.class);
         query.setMaxResults(1);
         String lastId = query.uniqueResult();
         if (lastId != null) {
-            int lastNum = Integer.parseInt(lastId.substring(1));
-            return String.format("L%04d", lastNum + 1);
+            int num = Integer.parseInt(lastId.substring(1)) + 1;
+            return String.format("L%04d", num);
         }
         return "L1001";
     }
+
+
 }

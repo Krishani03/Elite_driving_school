@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface InstructorBO extends SuperBO {
 
-    boolean saveInstructor(InstructorDTO dto);
+    InstructorDTO saveInstructor(InstructorDTO dto);
     boolean updateInstructor(InstructorDTO dto);
-    boolean deleteInstructor(Long id) throws SQLException;
-    InstructorDTO searchInstructor(Long id) throws SQLException;
+    boolean deleteInstructor(String id) throws SQLException;
+    InstructorDTO searchInstructor(String id) throws SQLException;
     List<InstructorDTO> getAllInstructors() throws SQLException;
+    String getNextInstructorId();
+
 }

@@ -82,7 +82,7 @@ public class Student_FormController {
             }
 
             StudentDTO student = new StudentDTO(
-                    null, // ID is null for new student
+                    null,
                     firstName,
                     lastName,
                     email,
@@ -90,17 +90,25 @@ public class Student_FormController {
                     regDate
             );
 
-            StudentDTO savedStudent = studentBO.saveStudent(student); // return saved student with ID
-            txtStudentId.setText(String.valueOf(savedStudent.getId()));
+            StudentDTO savedStudent = studentBO.saveStudent(student);
 
-            new Alert(Alert.AlertType.INFORMATION, "Student added successfully!").show();
-            loadAllStudents();
-            clearFields();
+            if (savedStudent != null) {
+                txtStudentId.setText(savedStudent.getId());
+                new Alert(Alert.AlertType.INFORMATION, "Student added successfully!").show();
+                loadAllStudents();
+                clearFields();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to add student!").show();
+            }
 
         } catch (Exception e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
         }
     }
+
+
+
 
     private void clearFields() {
         txtStudentId.clear();
@@ -119,7 +127,7 @@ public class Student_FormController {
     @FXML
     void btnDeleteStuOnAction(ActionEvent event) {
         try {
-            if (studentBO.deleteStudent(Long.parseLong(txtStudentId.getText()))) {
+            if (studentBO.deleteStudent((txtStudentId.getText()))) {
                 new Alert(Alert.AlertType.INFORMATION, "Student deleted successfully!").show();
                 loadAllStudents();
                 clearFields();
@@ -134,7 +142,7 @@ public class Student_FormController {
     @FXML
     void btnSearchStuOnAction(ActionEvent event) {
         try {
-            StudentDTO student = studentBO.searchStudent(Long.parseLong(txtStudentId.getText()));
+            StudentDTO student = studentBO.searchStudent((txtStudentId.getText()));
             if (student != null) {
                 txtStudentId.setText(String.valueOf(student.getId()));
                 txtStudent.setText(student.getFirst_name());
@@ -154,7 +162,7 @@ public class Student_FormController {
     void btnUpdateStudentOnAction(ActionEvent event) {
         try {
             StudentDTO student = new StudentDTO(
-                    Long.parseLong(txtStudentId.getText()),
+                    (txtStudentId.getText()),
                     txtStudent.getText(),
                     txtStudentLast.getText(),
                     txtEmail.getText(),

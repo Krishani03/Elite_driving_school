@@ -67,7 +67,7 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public boolean deleteCourse(Long id) {
+    public boolean deleteCourse(String id) {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -84,7 +84,7 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public CourseDTO searchCourse(Long id) throws SQLException {
+    public CourseDTO searchCourse(String id) throws SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();
         try {
             Course course = courseDAO.search(id, session);

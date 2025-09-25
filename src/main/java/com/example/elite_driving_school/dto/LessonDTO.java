@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class LessonDTO implements Serializable {
-    private long id;
+    private String id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Long studentId;
-    private Long courseId;
-    private Long instructorId;
+    private String studentId;
+    private String courseId;
+    private String instructorId;
 
     private String studentName;
     private String courseName;
@@ -18,8 +18,8 @@ public class LessonDTO implements Serializable {
     public LessonDTO() {
     }
 
-    public LessonDTO(Long id, LocalDateTime startTime, LocalDateTime endTime,
-                     Long studentId, Long courseId, Long instructorId,
+    public LessonDTO(String id, LocalDateTime startTime, LocalDateTime endTime,
+                     String studentId, String courseId, String instructorId,
                      String studentName, String courseName, String instructorName) {
         this.id = id;
         this.startTime = startTime;
@@ -33,11 +33,11 @@ public class LessonDTO implements Serializable {
     }
 
     // Getters & Setters
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -57,27 +57,27 @@ public class LessonDTO implements Serializable {
         this.endTime = endTime;
     }
 
-    public Long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
-    public Long getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Long courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
-    public Long getInstructorId() {
+    public String getInstructorId() {
         return instructorId;
     }
 
-    public void setInstructorId(Long instructorId) {
+    public void setInstructorId(String instructorId) {
         this.instructorId = instructorId;
     }
 

@@ -16,8 +16,7 @@ import java.util.Set;
 @Builder
     public class Instructor {
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        private String id;
 
         private String name;
         private String phone;

@@ -54,12 +54,14 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public String getNextId(Session session) {
-        Query<Long> query = session.createQuery("SELECT id FROM Payment ORDER BY id DESC", Long.class);
+        Query<String> query = session.createQuery("SELECT p.id FROM Payment p ORDER BY p.id DESC", String.class);
         query.setMaxResults(1);
-        Long lastId = query.uniqueResult();
+        String lastId = query.uniqueResult();
         if (lastId != null) {
-            return String.format("P%04d", lastId + 1);
+            int num = Integer.parseInt(lastId.substring(1)); // remove 'P'
+            return "P" + (num + 1);
         }
         return "P1001";
     }
+
 }

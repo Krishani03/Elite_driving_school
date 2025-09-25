@@ -3,25 +3,25 @@ package com.example.elite_driving_school.dto;
 import java.io.Serializable;
 
 public class InstructorDTO implements Serializable {
-    private Long id;
+    private String id;
     private String name;
     private String phone;
     private String email;
 
     public InstructorDTO() {
     }
-    public InstructorDTO(Long id, String name, String phone, String email) {
+    public InstructorDTO(String id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

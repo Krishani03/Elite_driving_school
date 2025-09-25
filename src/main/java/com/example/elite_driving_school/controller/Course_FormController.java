@@ -3,7 +3,6 @@ package com.example.elite_driving_school.controller;
 import com.example.elite_driving_school.bo.BOFactory;
 import com.example.elite_driving_school.bo.custom.CourseBO;
 import com.example.elite_driving_school.dto.CourseDTO;
-import com.example.elite_driving_school.dto.InstructorDTO;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,10 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Course_FormController {
+
     @FXML
     private TableColumn<CourseDTO, String> colDuration;
 
@@ -23,7 +22,7 @@ public class Course_FormController {
     private TableColumn<CourseDTO, BigDecimal> colFee;
 
     @FXML
-    private TableColumn<CourseDTO, Long> colId;
+    private TableColumn<CourseDTO, String> colId;
 
     @FXML
     private TableColumn<CourseDTO, String> colName;
@@ -46,7 +45,7 @@ public class Course_FormController {
     private final CourseBO courseBO =
             (CourseBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.COURSE);
 
-    public void initialize(){
+    public void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
@@ -54,10 +53,11 @@ public class Course_FormController {
 
         loadAllCourses();
     }
+
     private void loadAllCourses() {
         try {
             List<CourseDTO> courses = courseBO.getAllCourses();
-            tblCourse.setItems(FXCollections.observableArrayList(courses).sorted());
+            tblCourse.setItems(FXCollections.observableArrayList(courses));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load courses: " + e.getMessage()).show();
         }
@@ -67,12 +67,12 @@ public class Course_FormController {
     void btnAddCouOnAction(ActionEvent event) {
         try {
             CourseDTO dto = new CourseDTO();
+            dto.setId(txtCourseID.getText()); // use the ID you provide or generated
             dto.setName(txtCourse.getText());
             dto.setDuration(txtDuration.getText());
             dto.setFee(new BigDecimal(txtFee.getText()));
 
             if (courseBO.saveCourse(dto)) {
-                txtCourseID.setText(String.valueOf(dto.getId())); // show generated ID
                 new Alert(Alert.AlertType.INFORMATION, "Course added successfully!").show();
                 loadAllCourses();
                 clearFields();
@@ -87,7 +87,7 @@ public class Course_FormController {
     @FXML
     void btnDeleteCouOnAction(ActionEvent event) {
         try {
-            Long id = Long.parseLong(txtCourseID.getText());
+            String id = txtCourseID.getText(); // keep as String
             if (courseBO.deleteCourse(id)) {
                 new Alert(Alert.AlertType.INFORMATION, "Course deleted successfully!").show();
                 loadAllCourses();
@@ -103,10 +103,10 @@ public class Course_FormController {
     @FXML
     void btnSearchCouOnAction(ActionEvent event) {
         try {
-            Long id = Long.parseLong(txtCourseID.getText());
+            String id = txtCourseID.getText(); // keep as String
             CourseDTO dto = courseBO.searchCourse(id);
             if (dto != null) {
-                txtCourseID.setText(String.valueOf(dto.getId()));
+                txtCourseID.setText(dto.getId());
                 txtCourse.setText(dto.getName());
                 txtDuration.setText(dto.getDuration());
                 txtFee.setText(dto.getFee().toString());
@@ -122,7 +122,7 @@ public class Course_FormController {
     void btnUpdateCouOnAction(ActionEvent event) {
         try {
             CourseDTO dto = new CourseDTO();
-            dto.setId(Long.parseLong(txtCourseID.getText()));
+            dto.setId(txtCourseID.getText()); // String ID
             dto.setName(txtCourse.getText());
             dto.setDuration(txtDuration.getText());
             dto.setFee(new BigDecimal(txtFee.getText()));
@@ -143,7 +143,7 @@ public class Course_FormController {
     void onClickTable(MouseEvent event) {
         CourseDTO selected = tblCourse.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            txtCourseID.setText(String.valueOf(selected.getId()));
+            txtCourseID.setText(selected.getId());
             txtCourse.setText(selected.getName());
             txtDuration.setText(selected.getDuration());
             txtFee.setText(selected.getFee().toString());
@@ -156,5 +156,4 @@ public class Course_FormController {
         txtDuration.clear();
         txtFee.clear();
     }
-
 }

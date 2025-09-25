@@ -19,8 +19,7 @@ import java.util.HashSet;
 @Builder
     public class Course {
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id; // e.g., "C1001"
+        private String id; // e.g., "C1001"
 
         private String name;
 

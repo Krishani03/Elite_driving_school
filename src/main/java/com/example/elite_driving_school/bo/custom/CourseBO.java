@@ -10,7 +10,7 @@ import java.util.List;
 public interface CourseBO extends SuperBO {
     public boolean saveCourse(CourseDTO dto);
     public boolean updateCourse(CourseDTO dto);
-    public boolean deleteCourse(Long id);
-    public CourseDTO searchCourse(Long id) throws SQLException;
+    public boolean deleteCourse(String id);
+    public CourseDTO searchCourse(String id) throws SQLException;
     List<CourseDTO> getAllCourses();
 }

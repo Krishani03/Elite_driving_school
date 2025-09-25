@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 @Builder
     public class Lesson {
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        private String id;
 
         private LocalDateTime startTime;
         private LocalDateTime endTime;

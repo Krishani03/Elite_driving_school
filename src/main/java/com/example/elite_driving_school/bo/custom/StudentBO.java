@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public interface StudentBO extends SuperBO {
     StudentDTO saveStudent(StudentDTO dto) throws Exception;
     boolean updateStudent(StudentDTO dto) throws Exception;
-    boolean deleteStudent(Long id) throws Exception;
-    StudentDTO searchStudent(Long id) throws Exception;
+    boolean deleteStudent(String id) throws Exception;
+    StudentDTO searchStudent(String id) throws Exception;
     ArrayList<StudentDTO> getAllStudents() throws Exception;
+
 }

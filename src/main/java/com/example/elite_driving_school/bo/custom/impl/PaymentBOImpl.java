@@ -33,29 +33,30 @@ public class PaymentBOImpl implements PaymentBO {
         if (paymentDTO.getAmount() == null || paymentDTO.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new PaymentException("Payment amount must be greater than zero.");
         }
-
         if (paymentDTO.getPayment_date() == null) {
             paymentDTO.setPayment_date(LocalDateTime.now());
         }
-
         if (paymentDTO.getMethod() == null || paymentDTO.getMethod().isEmpty()) {
             throw new PaymentException("Payment method is required.");
         }
 
         try {
             Payment payment = new Payment();
+
+            payment.setId(getNextPaymentId(session));
             payment.setAmount(paymentDTO.getAmount());
             payment.setPaymentDate(paymentDTO.getPayment_date());
             payment.setMethod(paymentDTO.getMethod());
             payment.setStudent(student);
 
             paymentDAO.save(payment, session);
-
+            paymentDTO.setId(payment.getId());
         } catch (Exception e) {
             log.error("Error processing payment: {}", e.getMessage());
             throw new PaymentException("Failed to process payment: " + e.getMessage());
         }
     }
+
 
     @Override
     public List<PaymentDTO> getPaymentsByStudent(Student student, Session session) throws SQLException {
