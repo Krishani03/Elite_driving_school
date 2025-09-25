@@ -46,7 +46,6 @@ public class Login_FormController {
         }
 
         try {
-            // Find user by username
             UserDTO user = userBO.getAllUsers().stream()
                     .filter(u -> u.getUsername().equalsIgnoreCase(username))
                     .findFirst()
@@ -83,7 +82,7 @@ public class Login_FormController {
         }
     }
 
-    // Utility to show alerts
+
     private void showAlert(Alert.AlertType type, String message) {
         Alert alert = new Alert(type);
         alert.setTitle("Login");
@@ -92,7 +91,6 @@ public class Login_FormController {
         alert.showAndWait();
     }
 
-    // Utility to open a new dashboard window
     private void openDashboard(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -101,7 +99,7 @@ public class Login_FormController {
             stage.setTitle(title);
             stage.show();
 
-            // Close login window
+
             Stage currentStage = (Stage) btnLogin.getScene().getWindow();
             currentStage.close();
 
