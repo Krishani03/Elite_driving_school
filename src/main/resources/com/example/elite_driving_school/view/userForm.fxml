@@ -41,6 +41,6 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-      <TextField fx:id="txtUsernameID" layoutX="120.0" layoutY="16.0" prefWidth="200.0" />
+      <TextField fx:id="txtUserId" layoutX="120.0" layoutY="16.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

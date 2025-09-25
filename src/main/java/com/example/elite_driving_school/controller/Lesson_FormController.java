@@ -178,4 +178,8 @@ public class Lesson_FormController {
             }
         }
     }
+
+    public void btnClearLesOnAction(ActionEvent actionEvent) {
+        clearFields();
+    }
 }

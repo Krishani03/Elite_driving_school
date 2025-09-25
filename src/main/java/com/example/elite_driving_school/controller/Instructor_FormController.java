@@ -54,7 +54,6 @@ public class Instructor_FormController {
         generateNextId();
     }
 
-    /** Load all instructors into the table */
     private void loadAllInstructors() {
         try {
             List<InstructorDTO> instructors = instructorBO.getAllInstructors();
@@ -64,7 +63,6 @@ public class Instructor_FormController {
         }
     }
 
-    /** Generate next instructor ID and set in the ID field */
     private void generateNextId() {
         try {
             String nextId = instructorBO.getNextInstructorId();
