@@ -149,6 +149,10 @@ public class Course_FormController {
             txtFee.setText(selected.getFee().toString());
         }
     }
+    @FXML
+    void btnClearCouOnAction(ActionEvent event) {
+        clearFields();
+    }
 
     private void clearFields() {
         txtCourseID.clear();
