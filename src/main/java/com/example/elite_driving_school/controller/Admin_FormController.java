@@ -38,7 +38,7 @@ public class Admin_FormController {
 
     @FXML
     void btnInstructorOnAction(ActionEvent event) {
-
+        navigateTo("/com/example/elite_driving_school/view/instructorForm.fxml");
     }
 
     @FXML
