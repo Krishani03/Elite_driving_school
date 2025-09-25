@@ -16,6 +16,7 @@ import java.util.Set;
 @Builder
     public class Instructor {
         @Id
+        @Column(length = 10)
         private String id;
 
         private String name;

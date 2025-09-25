@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class Payment {
 
     @Id
+    @Column(length = 10)
     private String id;
 
     private BigDecimal amount;

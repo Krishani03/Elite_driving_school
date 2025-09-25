@@ -15,6 +15,7 @@ import lombok.*;
 public class User {
 
     @Id
+    @Column(length = 10)
     private String id;
 
     @Column(unique = true, nullable = false)

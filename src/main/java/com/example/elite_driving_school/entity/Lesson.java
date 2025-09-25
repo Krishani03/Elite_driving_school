@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Builder
     public class Lesson {
         @Id
+        @Column(length = 10)
         private String id;
 
         private LocalDateTime startTime;

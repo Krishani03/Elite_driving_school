@@ -19,6 +19,7 @@ import java.util.HashSet;
 @Builder
     public class Course {
         @Id
+        @Column(length = 10)
         private String id; // e.g., "C1001"
 
         private String name;

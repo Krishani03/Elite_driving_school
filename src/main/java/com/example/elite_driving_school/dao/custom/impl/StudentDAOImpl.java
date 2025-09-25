@@ -45,15 +45,20 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public String getNextId(Session session) {
-        Query<String> query = session.createQuery(
-                "SELECT id FROM Student ORDER BY id DESC", String.class);
-        query.setMaxResults(1);
-        String lastId = query.uniqueResult();
-        if (lastId != null) {
-            int num = Integer.parseInt(lastId.substring(1)) + 1;
-            return String.format("S%04d", num);
+
+            String lastId = (String) session.createQuery("SELECT s.id FROM Student s ORDER BY s.id DESC")
+                    .setMaxResults(1)
+                    .uniqueResult();
+
+            if (lastId != null) {
+                int num = Integer.parseInt(lastId.substring(1)); // remove 'S'
+                num++;
+                return String.format("S%03d", num);
+            } else {
+                return "S001";
+            }
         }
-        return "S1001";
+
     }
 
-}
+

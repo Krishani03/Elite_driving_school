@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
     public class Student {
         @Id
+        @Column(length = 10)
         private String id;
 
         private String firstName;
