@@ -23,17 +23,27 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean delete(String id, Session session) {
-        Payment payment = session.get(Payment.class, id);
-        if (payment != null) {
-            session.remove(payment);
-            return true;
+        try {
+            Long longId = Long.parseLong(id);
+            Payment payment = session.get(Payment.class, longId);
+            if (payment != null) {
+                session.remove(payment);
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
         }
-        return false;
     }
 
     @Override
     public Payment search(String id, Session session) {
-        return session.get(Payment.class, id);
+        try {
+            Long longId = Long.parseLong(id);
+            return session.get(Payment.class, longId);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     @Override
@@ -44,12 +54,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public String getNextId(Session session) {
-        Query<String> query = session.createQuery("SELECT id FROM Payment ORDER BY id DESC", String.class);
+        Query<Long> query = session.createQuery("SELECT id FROM Payment ORDER BY id DESC", Long.class);
         query.setMaxResults(1);
-        String lastId = query.uniqueResult();
+        Long lastId = query.uniqueResult();
         if (lastId != null) {
-            int lastNum = Integer.parseInt(lastId.substring(1));
-            return String.format("P%04d", lastNum + 1);
+            return String.format("P%04d", lastId + 1);
         }
         return "P1001";
     }

@@ -11,8 +11,7 @@ public class StudentDTO implements Serializable {
     private String phone;
     private LocalDate registration_date;
 
-    public StudentDTO(String s, String firstName, String lastName, String email, String phone, LocalDate registrationDate) {
-    }
+
     public StudentDTO(Long id, String first_name, String last_name, String email, String phone, LocalDate registration_date) {
         this.id = id;
         this.first_name = first_name;

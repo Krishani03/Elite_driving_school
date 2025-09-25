@@ -4,26 +4,26 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class CourseDTO implements Serializable {
-    private Long course_id;
+    private Long id;
     private String name;
     private String duration;
     private BigDecimal fee;
 
     public CourseDTO() {
     }
-    public CourseDTO(Long course_id, String name, String duration, BigDecimal fee) {
-        this.course_id = course_id;
+    public CourseDTO(Long id, String name, String duration, BigDecimal fee) {
+        this.id = id;
         this.name = name;
         this.duration = duration;
         this.fee = fee;
     }
 
-    public Long getCourse_id() {
-        return course_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setCourse_id(Long course_id) {
-        this.course_id = course_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

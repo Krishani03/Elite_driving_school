@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourseBOImpl implements CourseBO {
 
@@ -23,7 +24,7 @@ public class CourseBOImpl implements CourseBO {
         Transaction transaction = session.beginTransaction();
         try {
             Course course = Course.builder()
-                    .id(dto.getCourse_id())
+                    .id(dto.getId())
                     .name(dto.getName())
                     .duration(dto.getDuration())
                     .fee(dto.getFee())
@@ -47,7 +48,7 @@ public class CourseBOImpl implements CourseBO {
         Transaction transaction = session.beginTransaction();
         try {
             Course course = Course.builder()
-                    .id(dto.getCourse_id())
+                    .id(dto.getId())
                     .name(dto.getName())
                     .duration(dto.getDuration())
                     .fee(dto.getFee())
@@ -66,7 +67,7 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public boolean deleteCourse(String id) {
+    public boolean deleteCourse(Long id) {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -83,7 +84,7 @@ public class CourseBOImpl implements CourseBO {
     }
 
     @Override
-    public CourseDTO searchCourse(String id) throws SQLException {
+    public CourseDTO searchCourse(Long id) throws SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();
         try {
             Course course = courseDAO.search(id, session);
@@ -101,12 +102,13 @@ public class CourseBOImpl implements CourseBO {
         }
     }
 
+
     @Override
-    public ArrayList<CourseDTO> getAllCourses() {
+    public List<CourseDTO> getAllCourses() {
         Session session = FactoryConfiguration.getInstance().getSession();
         try {
-            ArrayList<Course> courses = courseDAO.getAll(session);
-            ArrayList<CourseDTO> dtoList = new ArrayList<>();
+            List<Course> courses = courseDAO.getAll(session);
+            List<CourseDTO> dtoList = new ArrayList<>();
             for (Course course : courses) {
                 dtoList.add(new CourseDTO(
                         course.getId(),
@@ -123,13 +125,6 @@ public class CourseBOImpl implements CourseBO {
         }
     }
 
-    @Override
-    public String getNextCourseId() throws SQLException {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        try {
-            return courseDAO.getNextId(session);
-        } finally {
-            session.close();
-        }
-    }
+
+
 }

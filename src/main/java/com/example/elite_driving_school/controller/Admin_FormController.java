@@ -33,6 +33,7 @@ public class Admin_FormController {
 
     @FXML
     void btnCourseOnAction(ActionEvent event) {
+        navigateTo("/com/example/elite_driving_school/view/courseForm.fxml");
 
     }
 
@@ -43,11 +44,13 @@ public class Admin_FormController {
 
     @FXML
     void btnLessonOnAction(ActionEvent event) {
+        navigateTo("/com/example/elite_driving_school/view/lessonForm.fxml");
 
     }
 
     @FXML
     void btnPaymentOnAction(ActionEvent event) {
+        navigateTo("/com/example/elite_driving_school/view/paymentForm.fxml");
 
     }
 
@@ -58,6 +61,7 @@ public class Admin_FormController {
 
     @FXML
     void btnUserOnAction(ActionEvent event) {
+        navigateTo("/com/example/elite_driving_school/view/userForm.fxml");
 
     }
     private void navigateTo(String path) {

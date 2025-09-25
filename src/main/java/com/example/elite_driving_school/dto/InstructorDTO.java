@@ -3,14 +3,14 @@ package com.example.elite_driving_school.dto;
 import java.io.Serializable;
 
 public class InstructorDTO implements Serializable {
-    private long id;
+    private Long id;
     private String name;
     private String phone;
     private String email;
 
     public InstructorDTO() {
     }
-    public InstructorDTO(long id, String name, String phone, String email) {
+    public InstructorDTO(Long id, String name, String phone, String email) {
         this.id = id;
         this.name = name;
         this.phone = phone;

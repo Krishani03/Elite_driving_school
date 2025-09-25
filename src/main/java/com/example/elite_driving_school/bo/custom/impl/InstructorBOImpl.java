@@ -11,17 +11,19 @@ import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InstructorBOImpl implements InstructorBO {
 
     private final InstructorDAO instructorDAO =
             (InstructorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.INSTRUCTOR);
 
+
     @Override
     public boolean saveInstructor(InstructorDTO dto) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            Transaction transaction = session.beginTransaction();
+
             Instructor instructor = Instructor.builder()
                     .name(dto.getName())
                     .phone(dto.getPhone())
@@ -29,28 +31,31 @@ public class InstructorBOImpl implements InstructorBO {
                     .build();
 
             boolean result = instructorDAO.save(instructor, session);
+
             transaction.commit();
+
+            dto.setId(instructor.getId());
+
             return result;
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
-        } finally {
-            session.close();
         }
     }
 
+
     @Override
     public boolean updateInstructor(InstructorDTO dto) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            Instructor instructor = Instructor.builder()
-                    .id(dto.getId())
-                    .name(dto.getName())
-                    .phone(dto.getPhone())
-                    .email(dto.getEmail())
-                    .build();
+        Transaction transaction = null;
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            transaction = session.beginTransaction();
+
+            Instructor instructor = session.get(Instructor.class, dto.getId());
+            if (instructor == null) return false;
+
+            instructor.setName(dto.getName());
+            instructor.setPhone(dto.getPhone());
+            instructor.setEmail(dto.getEmail());
 
             boolean result = instructorDAO.update(instructor, session);
             transaction.commit();
@@ -59,16 +64,14 @@ public class InstructorBOImpl implements InstructorBO {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
-        } finally {
-            session.close();
         }
     }
 
     @Override
-    public boolean deleteInstructor(String id) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
+    public boolean deleteInstructor(Long id) {
+        Transaction transaction = null;
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            transaction = session.beginTransaction();
             boolean result = instructorDAO.delete(id, session);
             transaction.commit();
             return result;
@@ -76,15 +79,12 @@ public class InstructorBOImpl implements InstructorBO {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
-        } finally {
-            session.close();
         }
     }
 
     @Override
-    public InstructorDTO searchInstructor(String id) throws SQLException {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        try {
+    public InstructorDTO searchInstructor(Long id) throws SQLException {
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
             Instructor instructor = instructorDAO.search(id, session);
             if (instructor != null) {
                 return new InstructorDTO(
@@ -95,17 +95,14 @@ public class InstructorBOImpl implements InstructorBO {
                 );
             }
             return null;
-        } finally {
-            session.close();
         }
     }
 
     @Override
-    public ArrayList<InstructorDTO> getAllInstructors() {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        try {
-            ArrayList<Instructor> instructors = instructorDAO.getAll(session);
-            ArrayList<InstructorDTO> dtoList = new ArrayList<>();
+    public List<InstructorDTO> getAllInstructors() {
+        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+            List<Instructor> instructors = instructorDAO.getAll(session);
+            List<InstructorDTO> dtoList = new ArrayList<>();
             for (Instructor instructor : instructors) {
                 dtoList.add(new InstructorDTO(
                         instructor.getId(),
@@ -117,19 +114,6 @@ public class InstructorBOImpl implements InstructorBO {
             return dtoList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public String getNextInstructorId() throws SQLException {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        try {
-            return instructorDAO.getNextId(session);
-        } finally {
-            session.close();
         }
     }
 }
-

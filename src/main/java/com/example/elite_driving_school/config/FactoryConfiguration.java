@@ -18,7 +18,7 @@ public class FactoryConfiguration {
 
     private FactoryConfiguration() {
         Configuration configuration = new Configuration();
-        configuration.configure();//load configuration
+        configuration.configure();
 
         //add entity classes
         configuration.addAnnotatedClass(User.class);
@@ -28,7 +28,6 @@ public class FactoryConfiguration {
         configuration.addAnnotatedClass(Lesson.class);
         configuration.addAnnotatedClass(Payment.class);
 
-        //create session factory
         sessionFactory = configuration.buildSessionFactory();
     }
 

@@ -55,6 +55,6 @@
             </Button>
          </children>
       </VBox>
-      <AnchorPane fx:id="ancMainContainer" layoutX="162.0" prefHeight="400.0" prefWidth="445.0" style="-fx-background-color: #0A1A29;" />
+      <AnchorPane fx:id="ancMainContainer" layoutX="162.0" prefHeight="400.0" prefWidth="445.0" style="-fx-background-color: #E3FFFE;" />
    </children>
 </AnchorPane>

@@ -14,7 +14,7 @@ public class DataInitializer {
                 if (userBO.getUserByUsername("admin") == null) {
                     UserDTO admin = new UserDTO();
                     admin.setUsername("admin");
-                    admin.setPassword("admin123"); // password will be hashed
+                    admin.setPassword("admin123");
                     admin.setRole("ADMIN");
                     admin.setActive(true);
                     userBO.saveUser(admin);
@@ -25,7 +25,7 @@ public class DataInitializer {
                 if (userBO.getUserByUsername("receptionist") == null) {
                     UserDTO receptionist = new UserDTO();
                     receptionist.setUsername("receptionist");
-                    receptionist.setPassword("recep123"); // password will be hashed
+                    receptionist.setPassword("recep123");
                     receptionist.setRole("RECEPTIONIST");
                     receptionist.setActive(true);
                     userBO.saveUser(receptionist);

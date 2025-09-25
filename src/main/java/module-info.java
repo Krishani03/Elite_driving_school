@@ -14,6 +14,8 @@ module com.example.elite_driving_school {
     opens com.example.elite_driving_school to javafx.fxml, org.hibernate.orm.core;
     opens com.example.elite_driving_school.controller to javafx.fxml;
     opens com.example.elite_driving_school.entity to org.hibernate.orm.core;
+    opens com.example.elite_driving_school.dto to javafx.base;
+
 
     // Export base package
     exports com.example.elite_driving_school;

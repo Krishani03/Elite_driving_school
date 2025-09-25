@@ -5,12 +5,12 @@ import com.example.elite_driving_school.dto.CourseDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CourseBO extends SuperBO {
     public boolean saveCourse(CourseDTO dto);
     public boolean updateCourse(CourseDTO dto);
-    public boolean deleteCourse(String id);
-    public CourseDTO searchCourse(String id) throws SQLException;
-    public ArrayList<CourseDTO> getAllCourses();
-    public String getNextCourseId() throws SQLException;
+    public boolean deleteCourse(Long id);
+    public CourseDTO searchCourse(Long id) throws SQLException;
+    List<CourseDTO> getAllCourses();
 }

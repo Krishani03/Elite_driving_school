@@ -22,7 +22,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private String passwordHash; // store with BCrypt
+    private String passwordHash;
 
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN, RECEPTIONIST

@@ -71,15 +71,14 @@ public class PaymentBOImpl implements PaymentBO {
                     p.getId(),
                     p.getAmount(),
                     p.getPaymentDate(),
-                    p.getMethod()
+                    p.getMethod(),
+                    p.getStudent()
             ));
         }
         return paymentDTOs;
     }
 
-    /**
-     * Generate next payment ID (delegates to DAO)
-     */
+
     @Override
     public String getNextPaymentId(Session session) throws SQLException {
         return paymentDAO.getNextId(session);

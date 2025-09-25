@@ -19,7 +19,7 @@ import java.util.HashSet;
 @Builder
     public class Course {
         @Id
-        @Column(name = "course_id")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id; // e.g., "C1001"
 
         private String name;

@@ -39,10 +39,8 @@ public boolean saveUser(UserDTO dto) {
     Session session = FactoryConfiguration.getInstance().getSession();
     Transaction transaction = session.beginTransaction();
     try {
-        // Convert DTO role (String) to Entity Role enum
         User.Role userRole = User.Role.valueOf(dto.getRole().toUpperCase());
 
-        // Create User entity with hashed password
         User user = new User(
                 dto.getUsername(),
                 hashPassword(dto.getPassword()),

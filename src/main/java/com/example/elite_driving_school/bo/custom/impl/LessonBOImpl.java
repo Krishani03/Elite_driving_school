@@ -121,7 +121,10 @@ public class LessonBOImpl implements LessonBO {
                         lesson.getEndTime(),
                         lesson.getStudent().getId(),
                         lesson.getCourse().getId(),
-                        lesson.getInstructor().getId()
+                        lesson.getInstructor().getId(),
+                        lesson.getStudent().getFirstName() + " " + lesson.getStudent().getLastName(),
+                        lesson.getCourse().getName(),
+                        lesson.getInstructor().getName()
                 );
             }
             return null;
@@ -143,8 +146,12 @@ public class LessonBOImpl implements LessonBO {
                         lesson.getEndTime(),
                         lesson.getStudent().getId(),
                         lesson.getCourse().getId(),
-                        lesson.getInstructor().getId()
+                        lesson.getInstructor().getId(),
+                        lesson.getStudent().getFirstName() + " " + lesson.getStudent().getLastName(),
+                        lesson.getCourse().getName(),
+                        lesson.getInstructor().getName()
                 ));
+
             }
             return dtoList;
         } catch (SQLException e) {

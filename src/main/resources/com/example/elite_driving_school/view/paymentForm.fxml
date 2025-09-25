@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.elite_driving_school.controller.Payment_FormController">
+   <children>
+      <Label layoutX="14.0" layoutY="20.0" prefHeight="23.0" prefWidth="155.0" text="Payment Id" />
+      <Label fx:id="lblId" layoutX="141.0" layoutY="23.0" prefHeight="17.0" prefWidth="44.0" text="1" />
+      <Label layoutX="14.0" layoutY="44.0" prefHeight="23.0" prefWidth="109.0" text="Student" />
+      <Label layoutX="14.0" layoutY="115.0" prefHeight="23.0" prefWidth="94.0" text="Method" />
+      <Button layoutX="53.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnAddPayOnAction" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #3127F5;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="240.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnClearPayOnAction" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #BD0D25;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tblPayment" layoutY="193.0" onMouseClicked="#onClickTable" prefHeight="200.0" prefWidth="445.0">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="78.66668450832367" text="Id" />
+            <TableColumn fx:id="colStudent" prefWidth="74.66665267944336" text="Student" />
+            <TableColumn fx:id="colAmount" prefWidth="82.00000762939453" text="Amount" />
+            <TableColumn fx:id="colMethod" prefWidth="106.66661071777344" text="Method" />
+            <TableColumn fx:id="colDate" prefWidth="64.0" text="Date" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Label layoutX="14.0" layoutY="81.0" prefHeight="23.0" prefWidth="109.0" text="Amount" />
+      <TextField fx:id="cmbAmount" layoutX="77.0" layoutY="80.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
+      <ComboBox fx:id="comStudent" layoutX="77.0" layoutY="43.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
+      <ComboBox fx:id="cmbMethod" layoutX="77.0" layoutY="114.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #ffffff;" />
+      <Label layoutX="240.0" layoutY="115.0" prefHeight="23.0" prefWidth="94.0" text="Date" />
+      <DatePicker fx:id="datePicker" layoutX="280.0" layoutY="114.0" prefHeight="25.0" prefWidth="141.0" />
+   </children>
+</AnchorPane>
