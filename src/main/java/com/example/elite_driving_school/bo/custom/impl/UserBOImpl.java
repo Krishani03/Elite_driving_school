@@ -17,45 +17,102 @@ public class UserBOImpl implements UserBO {
 
     private final UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.USER);
 
-    @Override
-    public boolean saveUser(UserDTO dto) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            User user = new User(dto.getUsername(), hashPassword(dto.getPassword()), dto.getRole(), dto.isActive());
-            boolean result = userDAO.save(user, session);
-            transaction.commit();
-            return result;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
+//    @Override
+//    public boolean saveUser(UserDTO dto) {
+//        Session session = FactoryConfiguration.getInstance().getSession();
+//        Transaction transaction = session.beginTransaction();
+//        try {
+//            User user = new User(dto.getUsername(), hashPassword(dto.getPassword()), dto.getRole(), dto.isActive());
+//            boolean result = userDAO.save(user, session);
+//            transaction.commit();
+//            return result;
+//        } catch (Exception e) {
+//            if (transaction != null) transaction.rollback();
+//            e.printStackTrace();
+//            return false;
+//        } finally {
+//            session.close();
+//        }
+//    }
+@Override
+public boolean saveUser(UserDTO dto) {
+    Session session = FactoryConfiguration.getInstance().getSession();
+    Transaction transaction = session.beginTransaction();
+    try {
+        // Convert DTO role (String) to Entity Role enum
+        User.Role userRole = User.Role.valueOf(dto.getRole().toUpperCase());
+
+        // Create User entity with hashed password
+        User user = new User(
+                dto.getUsername(),
+                hashPassword(dto.getPassword()),
+                userRole,
+                dto.isActive()
+        );
+
+        boolean result = userDAO.save(user, session);
+        transaction.commit();
+        return result;
+    } catch (Exception e) {
+        if (transaction != null) transaction.rollback();
+        e.printStackTrace();
+        return false;
+    } finally {
+        session.close();
     }
+}
+
+
 
     private String hashPassword(String plainPassword) {
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
     }
 
-    @Override
-    public boolean updateUser(UserDTO dto) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            User user = new User(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getRole());
-            boolean result = userDAO.update(user, session);
-            transaction.commit();
-            return result;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
+//    @Override
+//    public boolean updateUser(UserDTO dto) {
+//        Session session = FactoryConfiguration.getInstance().getSession();
+//        Transaction transaction = session.beginTransaction();
+//        try {
+//            User user = new User(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getRole());
+//            boolean result = userDAO.update(user, session);
+//            transaction.commit();
+//            return result;
+//        } catch (Exception e) {
+//            if (transaction != null) transaction.rollback();
+//            e.printStackTrace();
+//            return false;
+//        } finally {
+//            session.close();
+//        }
+//    }
+@Override
+public boolean updateUser(UserDTO dto) {
+    Session session = FactoryConfiguration.getInstance().getSession();
+    Transaction transaction = session.beginTransaction();
+    try {
+        // Convert DTO role to Entity Role enum
+        // dto.getRole() returns a String, e.g., "admin" or "receptionist"
+        User.Role userRole = User.Role.valueOf(dto.getRole().toUpperCase());
+
+        User user = new User(
+                dto.getId(),
+                dto.getUsername(),
+                hashPassword(dto.getPassword()), // rehash password if updating
+                userRole
+        );
+
+        boolean result = userDAO.update(user, session);
+        transaction.commit();
+        return result;
+    } catch (Exception e) {
+        if (transaction != null) transaction.rollback();
+        e.printStackTrace();
+        return false;
+    } finally {
+        session.close();
     }
+}
+
 
     @Override
     public boolean deleteUser(String id) {
@@ -114,4 +171,19 @@ public class UserBOImpl implements UserBO {
             session.close();
         }
     }
+
+    @Override
+    public UserDTO getUserByUsername(String username) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        try {
+            User user = userDAO.getUserByUsername(username, session);
+            if (user != null) {
+                return new UserDTO(user.getId(), user.getUsername(), user.getPasswordHash(), user.getRole().name(), user.isActive());
+            }
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
 }

@@ -8,14 +8,14 @@ public class UserDTO implements Serializable {
         private Long id;  // Match entity type
         private String username;
         private String password;
-        private User.Role role;
+        private String role;
         private boolean active;
 
         public UserDTO() {
 
         }
 
-        public UserDTO(Long id, String username, String password, User.Role role, boolean active) {
+        public UserDTO(Long id, String username, String password, String role, boolean active) {
             this.id = id;
             this.username = username;
             this.password = password;
@@ -23,21 +23,38 @@ public class UserDTO implements Serializable {
             this.active = active;
         }
 
-    public UserDTO(Long id, String username, String passwordHash, User.Role role) {
+    public UserDTO(Long id, String username, String password, User.Role role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role.name(); // store enum as string
+        this.active = true; // or pass from parameter if needed
     }
 
-    public Long getId() { return id; }
-        public void setId(Long id) { this.id = id; }
+    public Long getId() {
+            return id; }
+        public void setId(Long id) {
+            this.id = id; }
 
-        public String getUsername() { return username; }
-        public void setUsername(String username) { this.username = username; }
+        public String getUsername() {
+            return username; }
+        public void setUsername(String username) {
+            this.username = username; }
 
-        public String getPassword() { return password; }
-        public void setPassword(String password) { this.password = password; }
+        public String getPassword() {
+            return password; }
+        public void setPassword(String password) {
+            this.password = password; }
 
-        public User.Role getRole() { return role; }
-        public void setRole(User.Role role) { this.role = role; }
 
-        public boolean isActive() { return active; }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isActive() { return active; }
         public void setActive(boolean active) { this.active = active; }
 }

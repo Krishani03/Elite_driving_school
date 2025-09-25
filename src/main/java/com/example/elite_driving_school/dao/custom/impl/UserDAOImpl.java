@@ -55,5 +55,12 @@ public class UserDAOImpl implements UserDAO {
             }
             return "U1001";
         }
+
+    @Override
+    public User getUserByUsername(String username, Session session) {
+        Query<User> query = session.createQuery("FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        return query.uniqueResult();
     }
+}
 

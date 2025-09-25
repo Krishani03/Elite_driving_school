@@ -19,7 +19,7 @@
       </Label>
       <ImageView fitHeight="98.0" fitWidth="144.0" layoutX="366.0" layoutY="84.0">
          <image>
-            <Image url="@../../../../../../../drivingschool.png" />
+            <Image url="@../../../../../../../../drivingschool.png" />
          </image>
          <effect>
             <InnerShadow height="88.365" radius="58.57625" width="147.94" />

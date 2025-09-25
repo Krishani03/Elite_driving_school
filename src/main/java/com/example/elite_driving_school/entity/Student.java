@@ -1,7 +1,7 @@
 package com.example.elite_driving_school.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Table;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 import java.util.HashSet;

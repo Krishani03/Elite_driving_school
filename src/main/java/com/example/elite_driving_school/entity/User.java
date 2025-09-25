@@ -2,7 +2,7 @@ package com.example.elite_driving_school.entity;
 
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Table;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
@@ -29,13 +29,21 @@ public class User {
 
     private boolean active = true;
 
-    public User(String username, String s, Role role, boolean active) {
-
+    public User(String username, String passwordHash, Role role, boolean active) {
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.role = role;
+        this.active = active;
     }
 
-    public User(Long id, String username, String password, Role role) {
-
+    public User(Long id, String username, String passwordHash, Role role) {
+        this.id = id;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.role = role;
+        this.active = true; // default active
     }
+
 
 
     public enum Role {
