@@ -12,7 +12,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public boolean save(Student student, Session session) {
-        session.persist(student); // Hibernate auto-generates ID
+        session.persist(student);
         return true;
     }
 

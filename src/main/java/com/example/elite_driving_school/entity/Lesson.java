@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
         @JoinColumn(name = "instructor_id")
         private Instructor instructor;
 
-        // Getters & Setters
     }
 
 

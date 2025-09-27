@@ -6,21 +6,18 @@ import com.example.elite_driving_school.entity.Lesson;
 import com.example.elite_driving_school.entity.Instructor;
 import com.example.elite_driving_school.entity.Course;
 import com.example.elite_driving_school.entity.Payment;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-
 public class FactoryConfiguration {
     private static FactoryConfiguration factoryConfiguration;
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
         Configuration configuration = new Configuration();
-        configuration.configure();
 
-        //add entity classes
+        // Register all entities
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Student.class);
         configuration.addAnnotatedClass(Course.class);
@@ -32,13 +29,13 @@ public class FactoryConfiguration {
     }
 
     public static FactoryConfiguration getInstance() {
-        return factoryConfiguration == null ?
-                factoryConfiguration = new FactoryConfiguration() :
-                factoryConfiguration;
+        if (factoryConfiguration == null) {
+            factoryConfiguration = new FactoryConfiguration();
+        }
+        return factoryConfiguration;
     }
 
     public Session getSession() {
         return sessionFactory.openSession();
     }
-
 }

@@ -23,7 +23,6 @@ public class UserBOImpl implements UserBO {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            // Generate next ID from DAO
             String nextId = userDAO.getNextId(session);
 
             User.Role userRole = User.Role.valueOf(dto.getRole().toUpperCase());
@@ -112,7 +111,7 @@ public class UserBOImpl implements UserBO {
     public ArrayList<UserDTO> getAllUsers() throws SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();
         try {
-            List<User> users = userDAO.getAll(session); // change to List<User>
+            List<User> users = userDAO.getAll(session);
             ArrayList<UserDTO> dtoList = new ArrayList<>();
             for (User user : users) {
                 dtoList.add(new UserDTO(user.getId(), user.getUsername(),

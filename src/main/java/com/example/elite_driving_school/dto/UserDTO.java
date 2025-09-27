@@ -5,7 +5,7 @@ import com.example.elite_driving_school.entity.User;
 
 public class UserDTO implements Serializable {
 
-        private String id;  // Match entity type
+        private String id;
         private String username;
         private String password;
         private String role;
@@ -27,8 +27,8 @@ public class UserDTO implements Serializable {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.role = role.name(); // store enum as string
-        this.active = true; // or pass from parameter if needed
+        this.role = role.name();
+        this.active = true;
     }
 
     public String getId() {

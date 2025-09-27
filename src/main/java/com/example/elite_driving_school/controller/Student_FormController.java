@@ -66,7 +66,6 @@ public class Student_FormController {
             new Alert(Alert.AlertType.ERROR, "Failed to load students: " + e.getMessage()).show();
         }
     }
-
     @FXML
     void btnAddStudentOnAction(ActionEvent event) {
         try {
@@ -76,10 +75,32 @@ public class Student_FormController {
             String phone = txtPhone.getText().trim();
             LocalDate regDate = txtDate.getValue();
 
-            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
-                new Alert(Alert.AlertType.WARNING, "First name, Last name, and Email are required!").show();
+            // --- Validations ---
+            if (firstName.isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "First name is required!").show();
                 return;
             }
+
+            if (lastName.isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "Last name is required!").show();
+                return;
+            }
+
+            if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                new Alert(Alert.AlertType.WARNING, "Valid email is required!").show();
+                return;
+            }
+
+            if (phone.isEmpty() || !phone.matches("^\\d{10}$")) {
+                new Alert(Alert.AlertType.WARNING, "Phone number must be 10 digits!").show();
+                return;
+            }
+
+            if (regDate == null) {
+                new Alert(Alert.AlertType.WARNING, "Registration date is required!").show();
+                return;
+            }
+
 
             StudentDTO student = new StudentDTO(
                     null,
@@ -106,7 +127,6 @@ public class Student_FormController {
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
         }
     }
-
 
 
 

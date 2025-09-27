@@ -10,7 +10,6 @@ public class DataInitializer {
 
         public static void init() {
             try {
-                // Create Admin user if not exists
                 if (userBO.getUserByUsername("admin") == null) {
                     UserDTO admin = new UserDTO();
                     admin.setUsername("admin");
@@ -21,7 +20,6 @@ public class DataInitializer {
                     System.out.println("Default admin created!");
                 }
 
-                // Create Receptionist user if not exists
                 if (userBO.getUserByUsername("receptionist") == null) {
                     UserDTO receptionist = new UserDTO();
                     receptionist.setUsername("receptionist");

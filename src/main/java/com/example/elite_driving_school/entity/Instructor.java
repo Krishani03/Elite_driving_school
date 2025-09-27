@@ -26,7 +26,6 @@ import java.util.Set;
         @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Lesson> lessons = new HashSet<>();
 
-        // Getters & Setters
     }
 
 

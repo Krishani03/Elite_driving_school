@@ -29,7 +29,4 @@ public class Payment {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    // If you want to link courses later:
-    // @ManyToMany
-    // private Set<Course> courses;
 }
